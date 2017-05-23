@@ -1,8 +1,7 @@
 package org.dialog.hack.model;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Created by sasini on 5/22/17.
@@ -26,6 +25,9 @@ public class Employee_Profile {
 
     @OneToOne
     Employee_Supervisor employee_supervisor;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "emp_profile", fetch = FetchType.EAGER)
+    Collection<Employee_Attendance> employee_attendances;
 
     public int getEmp_ID() {
         return emp_ID;
@@ -121,5 +123,13 @@ public class Employee_Profile {
 
     public void setEmployee_supervisor(Employee_Supervisor employee_supervisor) {
         this.employee_supervisor = employee_supervisor;
+    }
+
+    public Collection<Employee_Attendance> getEmployee_attendances() {
+        return employee_attendances;
+    }
+
+    public void setEmployee_attendances(Collection<Employee_Attendance> employee_attendances) {
+        this.employee_attendances = employee_attendances;
     }
 }

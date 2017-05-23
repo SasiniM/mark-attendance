@@ -1,6 +1,8 @@
 package org.dialog.hack.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -13,7 +15,8 @@ public class Employee_Attendance {
     private String attendance_intime;
     private String attendance_outtime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "emp_id", referencedColumnName = "emp_ID")
     Employee_Profile emp_profile;
 
     public String getEmp_ID() {

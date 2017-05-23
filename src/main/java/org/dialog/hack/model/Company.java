@@ -1,20 +1,26 @@
 package org.dialog.hack.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Created by sasini on 5/23/17.
  */
 @Entity
 public class Company {
-    private String company_ID;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer company_ID;
     private String getCompany_name;
 
-    public String getCompany_ID() {
+    public Integer getCompany_ID() {
         return company_ID;
     }
 
-    public void setCompany_ID(String company_ID) {
+    public void setCompany_ID(Integer company_ID) {
         this.company_ID = company_ID;
     }
 
