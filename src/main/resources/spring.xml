@@ -16,9 +16,19 @@
           p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://localhost:3306/captureAttendance"
           p:username="root" p:password="pelpola"/>
 
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/testmarks"/>
+        <property name="username" value="root"/>
+        <property name="password" value="ijse"/>
+    </bean>-->
 
     <bean id="hibernateJpaVendorAdapter"
           class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+      <!--  <property name="showSql" value="true"/>
+        <property name="generateDdl" value="true"/>
+        <property name="database" value="MYSQL"/>-->
+    <!--</bean>-->
 
     <!-- Configure the entity manager factory bean -->
     <bean id="entityManagerFactory"
@@ -28,13 +38,14 @@
         <!-- Set JPA properties -->
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <!-- Automatically drop and create tables -->
                 <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
             </props>
         </property>
         <property name="packagesToScan" value="org.dialog.hack.model"/>
     </bean>
+
 
     <!-- Configure the transaction manager bean -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -45,4 +56,10 @@
 
     <jpa:repositories base-package="org.dialog.hack.repository"/>
     <context:component-scan base-package="org.dialog.hack.model"/>
+
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!-- Annotation, so that it's easier to search controllers/components -->
+    <context:component-scan base-package="org.dialog.hack.rest"/>
 </beans>
+
