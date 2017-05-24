@@ -10,7 +10,6 @@ public class Employee_Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer att_ID;
-    private Integer emp_ID;
     private String attendance_date;
     private String attendance_intime;
     private String attendance_outtime;
@@ -26,14 +25,6 @@ public class Employee_Attendance {
 
     public void setAtt_ID(Integer att_ID) {
         this.att_ID = att_ID;
-    }
-
-    public Integer getEmp_ID() {
-        return emp_ID;
-    }
-
-    public void setEmp_ID(Integer emp_ID) {
-        this.emp_ID = emp_ID;
     }
 
     public String getAttendance_date() {

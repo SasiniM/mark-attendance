@@ -15,10 +15,10 @@ public class Employee_Supervisor {
     private String sup_lastname;
     private String sup_staffNo;
 
-    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "employee_supervisor", fetch = FetchType.EAGER)
-    Employee_Profile employee_profile;
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "employee_supervisor", fetch = FetchType.EAGER)
+    Collection<Employee_Profile> employee_profiles;
 
-    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "employee_supervisor", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "employee_profile", fetch = FetchType.EAGER)
     User user;
 
     public Integer getSup_ID() {
@@ -53,19 +53,11 @@ public class Employee_Supervisor {
         this.sup_staffNo = sup_staffNo;
     }
 
-    public Employee_Profile getEmployee_profile() {
-        return employee_profile;
+    public Collection<Employee_Profile> getEmployee_profile() {
+        return employee_profiles;
     }
 
-    public void setEmployee_profile(Employee_Profile employee_profile) {
-        this.employee_profile = employee_profile;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setEmployee_profile(Collection<Employee_Profile> employee_profiles) {
+        this.employee_profiles = employee_profiles;
     }
 }

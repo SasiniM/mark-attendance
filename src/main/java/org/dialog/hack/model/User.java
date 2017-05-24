@@ -10,7 +10,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer u_ID;
-    private Integer emp_ID;
     private String username;
     private String password;
     private String user_role;
@@ -19,24 +18,17 @@ public class User {
     @JoinColumn(name = "emp_ID", referencedColumnName = "emp_ID")
     Employee_Profile employee_profile;
 
-    @OneToOne
+
+    /*@OneToOne
     @JoinColumn(name = "sup_ID", referencedColumnName = "sup_ID")
     Employee_Supervisor employee_supervisor;
-
+*/
     public Integer getU_ID() {
         return u_ID;
     }
 
     public void setU_ID(Integer u_ID) {
         this.u_ID = u_ID;
-    }
-
-    public Integer getEmp_ID() {
-        return emp_ID;
-    }
-
-    public void setEmp_ID(Integer emp_ID) {
-        this.emp_ID = emp_ID;
     }
 
     public String getUsername() {
@@ -71,11 +63,11 @@ public class User {
         this.employee_profile = employee_profile;
     }
 
-    public Employee_Supervisor getEmployee_supervisor() {
+    /*public Employee_Supervisor getEmployee_supervisor() {
         return employee_supervisor;
     }
 
     public void setEmployee_supervisor(Employee_Supervisor employee_supervisor) {
         this.employee_supervisor = employee_supervisor;
-    }
+    }*/
 }

@@ -16,20 +16,18 @@ public class Employee_Profile {
     private String emp_firstname;
     private String emp_lastname;
     private String email;
-    private Integer company_ID;
     private String emp_mobile;
-    private Integer sup_ID;
     private String emp_designation;
     private String createTime;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "employee_profile", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "employee_profile", fetch = FetchType.EAGER)
     User user;
 
     @ManyToOne
     @JoinColumn(name = "company_ID", referencedColumnName = "company_ID")
     Company company;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "sup_ID", referencedColumnName = "sup_ID")
     Employee_Supervisor employee_supervisor;
 
@@ -76,28 +74,12 @@ public class Employee_Profile {
         this.email = email;
     }
 
-    public Integer getCompany_ID() {
-        return company_ID;
-    }
-
-    public void setCompany_ID(Integer company_ID) {
-        this.company_ID = company_ID;
-    }
-
     public String getEmp_mobile() {
         return emp_mobile;
     }
 
     public void setEmp_mobile(String emp_mobile) {
         this.emp_mobile = emp_mobile;
-    }
-
-    public Integer getSup_ID() {
-        return sup_ID;
-    }
-
-    public void setSup_ID(Integer sup_ID) {
-        this.sup_ID = sup_ID;
     }
 
     public String getEmp_designation() {
