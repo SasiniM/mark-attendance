@@ -1,28 +1,41 @@
 package org.dialog.hack.model;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Created by sasini on 5/22/17.
  */
 @Entity
 public class User {
-    private int emp_ID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer u_ID;
+    private Integer emp_ID;
     private String username;
     private String password;
     private String user_role;
 
     @OneToOne
+    @JoinColumn(name = "emp_ID", referencedColumnName = "emp_ID")
     Employee_Profile employee_profile;
+
     @OneToOne
+    @JoinColumn(name = "sup_ID", referencedColumnName = "sup_ID")
     Employee_Supervisor employee_supervisor;
 
-    public int getEmp_ID() {
+    public Integer getU_ID() {
+        return u_ID;
+    }
+
+    public void setU_ID(Integer u_ID) {
+        this.u_ID = u_ID;
+    }
+
+    public Integer getEmp_ID() {
         return emp_ID;
     }
 
-    public void setEmp_ID(int emp_ID) {
+    public void setEmp_ID(Integer emp_ID) {
         this.emp_ID = emp_ID;
     }
 
@@ -50,19 +63,19 @@ public class User {
         this.user_role = user_role;
     }
 
-    public Employee_Supervisor getEmployee_supervisor() {
-        return employee_supervisor;
-    }
-
-    public void setEmployee_supervisor(Employee_Supervisor employee_supervisor) {
-        this.employee_supervisor = employee_supervisor;
-    }
-
     public Employee_Profile getEmployee_profile() {
         return employee_profile;
     }
 
     public void setEmployee_profile(Employee_Profile employee_profile) {
         this.employee_profile = employee_profile;
+    }
+
+    public Employee_Supervisor getEmployee_supervisor() {
+        return employee_supervisor;
+    }
+
+    public void setEmployee_supervisor(Employee_Supervisor employee_supervisor) {
+        this.employee_supervisor = employee_supervisor;
     }
 }

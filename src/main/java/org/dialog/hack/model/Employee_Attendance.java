@@ -1,29 +1,38 @@
 package org.dialog.hack.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by sasini on 5/23/17.
  */
 @Entity
 public class Employee_Attendance {
-    private String emp_ID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer att_ID;
+    private Integer emp_ID;
     private String attendance_date;
     private String attendance_intime;
     private String attendance_outtime;
+    private Double worked_hours;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "emp_id", referencedColumnName = "emp_ID")
+    @JoinColumn(name = "emp_ID", referencedColumnName = "emp_ID")
     Employee_Profile emp_profile;
 
-    public String getEmp_ID() {
+    public Integer getAtt_ID() {
+        return att_ID;
+    }
+
+    public void setAtt_ID(Integer att_ID) {
+        this.att_ID = att_ID;
+    }
+
+    public Integer getEmp_ID() {
         return emp_ID;
     }
 
-    public void setEmp_ID(String emp_ID) {
+    public void setEmp_ID(Integer emp_ID) {
         this.emp_ID = emp_ID;
     }
 
@@ -49,6 +58,14 @@ public class Employee_Attendance {
 
     public void setAttendance_outtime(String attendance_outtime) {
         this.attendance_outtime = attendance_outtime;
+    }
+
+    public Double getWorked_hours() {
+        return worked_hours;
+    }
+
+    public void setWorked_hours(Double worked_hours) {
+        this.worked_hours = worked_hours;
     }
 
     public Employee_Profile getEmp_profile() {

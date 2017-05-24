@@ -8,32 +8,39 @@ import java.util.Collection;
  */
 @Entity
 public class Employee_Profile {
-    int emp_ID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer emp_ID;
     //String emp_profilepic;
-    String emp_staff_no;
-    String emp_firstname;
-    String emp_lastname;
-    String email;
-    int company_ID;
-    String emp_mobile;
-    int sup_ID;
-    String emp_designation;
-    String createTime;
+    private String emp_staff_no;
+    private String emp_firstname;
+    private String emp_lastname;
+    private String email;
+    private Integer company_ID;
+    private String emp_mobile;
+    private Integer sup_ID;
+    private String emp_designation;
+    private String createTime;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "employee_profile", fetch = FetchType.EAGER)
+    User user;
 
     @ManyToOne
+    @JoinColumn(name = "company_ID", referencedColumnName = "company_ID")
     Company company;
 
     @OneToOne
+    @JoinColumn(name = "sup_ID", referencedColumnName = "sup_ID")
     Employee_Supervisor employee_supervisor;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "emp_profile", fetch = FetchType.EAGER)
     Collection<Employee_Attendance> employee_attendances;
 
-    public int getEmp_ID() {
+    public Integer getEmp_ID() {
         return emp_ID;
     }
 
-    public void setEmp_ID(int emp_ID) {
+    public void setEmp_ID(Integer emp_ID) {
         this.emp_ID = emp_ID;
     }
 
@@ -69,11 +76,11 @@ public class Employee_Profile {
         this.email = email;
     }
 
-    public int getCompany_ID() {
+    public Integer getCompany_ID() {
         return company_ID;
     }
 
-    public void setCompany_ID(int company_ID) {
+    public void setCompany_ID(Integer company_ID) {
         this.company_ID = company_ID;
     }
 
@@ -85,11 +92,11 @@ public class Employee_Profile {
         this.emp_mobile = emp_mobile;
     }
 
-    public int getSup_ID() {
+    public Integer getSup_ID() {
         return sup_ID;
     }
 
-    public void setSup_ID(int sup_ID) {
+    public void setSup_ID(Integer sup_ID) {
         this.sup_ID = sup_ID;
     }
 
@@ -107,6 +114,14 @@ public class Employee_Profile {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Company getCompany() {
