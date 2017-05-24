@@ -23,12 +23,7 @@
         <property name="password" value="ijse"/>
     </bean>-->
 
-    <bean id="hibernateJpaVendorAdapter"
-          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
-      <!--  <property name="showSql" value="true"/>
-        <property name="generateDdl" value="true"/>
-        <property name="database" value="MYSQL"/>-->
-    <!--</bean>-->
+    <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
 
     <!-- Configure the entity manager factory bean -->
     <bean id="entityManagerFactory"
