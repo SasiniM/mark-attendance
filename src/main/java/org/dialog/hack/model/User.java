@@ -9,26 +9,29 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer u_ID;
+    private Long id;
+    @Column(name = "username")
     private String username;
+    @Column(name = "password")
     private String password;
-    private String user_role;
+    @Column(name = "user_role")
+    private String userRole;
 
-    @OneToOne
-    @JoinColumn(name = "emp_ID", referencedColumnName = "emp_ID")
-    Employee_Profile employee_profile;
-
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.EAGER)
+    @JoinColumn(name = "employeeProfile_id", referencedColumnName = "id")
+    EmployeeProfile employeeProfile;
 
     /*@OneToOne
     @JoinColumn(name = "sup_ID", referencedColumnName = "sup_ID")
     Employee_Supervisor employee_supervisor;
 */
-    public Integer getU_ID() {
-        return u_ID;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setU_ID(Integer u_ID) {
-        this.u_ID = u_ID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -47,26 +50,23 @@ public class User {
         this.password = password;
     }
 
-    public String getUser_role() {
-        return user_role;
+    public String getUserRole() {
+        return userRole;
     }
 
-    public void setUser_role(String user_role) {
-        this.user_role = user_role;
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
-    public Employee_Profile getEmployee_profile() {
-        return employee_profile;
+    public EmployeeProfile getEmployeeProfile() {
+        return employeeProfile;
     }
 
-    public void setEmployee_profile(Employee_Profile employee_profile) {
-        this.employee_profile = employee_profile;
+    public void setEmployeeProfile(EmployeeProfile employeeProfile) {
+        this.employeeProfile = employeeProfile;
     }
 
-    /*public Employee_Supervisor getEmployee_supervisor() {
-        return employee_supervisor;
-    }
-
+    /*
     public void setEmployee_supervisor(Employee_Supervisor employee_supervisor) {
         this.employee_supervisor = employee_supervisor;
     }*/

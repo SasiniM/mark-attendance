@@ -11,7 +11,7 @@ import java.util.Collection;
 public class EmployeeSupervisor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long supID;
+    private Long id;
 
     @Column(name = "sup_firstname", nullable = false)
     private String supFirstname;
@@ -24,16 +24,17 @@ public class EmployeeSupervisor {
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "employeeSupervisor", fetch = FetchType.EAGER)
     Collection<EmployeeProfile> employeeProfiles;
-
+/*
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "employeeProfile", fetch = FetchType.EAGER)
+    @JoinColumn(name = "uID_fk", referencedColumnName = "uID")
     User user;
-
-    public Long getSupID() {
-        return supID;
+*/
+    public Long getId() {
+        return id;
     }
 
-    public void setSupID(Long supID) {
-        this.supID = supID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSupFirstname() {
@@ -68,11 +69,4 @@ public class EmployeeSupervisor {
         this.employeeProfiles = employeeProfiles;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
