@@ -10,7 +10,4 @@ import org.springframework.data.repository.query.Param;
  */
 public interface CompanyRepository extends CrudRepository <Company, Integer> {
 
-//    @Query("SELECT t.getCompany_name FROM Company t where t.company_ID = :id")
-//    String findComapanyNameById(@Param("id") Integer id);
-
 }
