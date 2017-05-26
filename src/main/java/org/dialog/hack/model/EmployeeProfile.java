@@ -3,6 +3,7 @@ package org.dialog.hack.model;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by sasini on 5/22/17.
@@ -40,7 +41,7 @@ public class EmployeeProfile {
     EmployeeSupervisor employeeSupervisor;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "employeeProfile", fetch = FetchType.EAGER)
-    Collection<EmployeeAttendance> employeeAttendances;
+    List<EmployeeAttendance> employeeAttendances;
 
     public Long getId() {
         return id;
@@ -130,11 +131,11 @@ public class EmployeeProfile {
         this.employeeSupervisor = employeeSupervisor;
     }
 
-    public Collection<EmployeeAttendance> getEmployeeAttendances() {
+    public List<EmployeeAttendance> getEmployeeAttendances() {
         return employeeAttendances;
     }
 
-    public void setEmployeeAttendances(Collection<EmployeeAttendance> employeeAttendances) {
+    public void setEmployeeAttendances(List<EmployeeAttendance> employeeAttendances) {
         this.employeeAttendances = employeeAttendances;
     }
 }

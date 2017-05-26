@@ -2,6 +2,7 @@ package org.dialog.hack.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by sasini on 5/23/17.
@@ -23,7 +24,7 @@ public class EmployeeSupervisor {
     private String supStaffNo;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "employeeSupervisor", fetch = FetchType.EAGER)
-    Collection<EmployeeProfile> employeeProfiles;
+    List<EmployeeProfile> employeeProfiles;
 /*
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "employeeProfile", fetch = FetchType.EAGER)
     @JoinColumn(name = "uID_fk", referencedColumnName = "uID")
@@ -61,11 +62,11 @@ public class EmployeeSupervisor {
         this.supStaffNo = supStaffNo;
     }
 
-    public Collection<EmployeeProfile> getEmployeeProfiles() {
+    public List<EmployeeProfile> getEmployeeProfiles() {
         return employeeProfiles;
     }
 
-    public void setEmployeeProfiles(Collection<EmployeeProfile> employeeProfiles) {
+    public void setEmployeeProfiles(List<EmployeeProfile> employeeProfiles) {
         this.employeeProfiles = employeeProfiles;
     }
 

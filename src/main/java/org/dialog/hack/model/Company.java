@@ -1,7 +1,7 @@
 package org.dialog.hack.model;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by sasini on 5/23/17.
@@ -16,7 +16,7 @@ public class Company {
     private String companyName;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "company", fetch = FetchType.EAGER)
-    Collection<EmployeeProfile> employeeProfiles;
+    List<EmployeeProfile> employeeProfiles;
 
     public Long getId() {
         return id;
@@ -34,11 +34,11 @@ public class Company {
         this.companyName = companyName;
     }
 
-    public Collection<EmployeeProfile> getEmployeeProfiles() {
+    public List<EmployeeProfile> getEmployeeProfiles() {
         return employeeProfiles;
     }
 
-    public void setEmployeeProfiles(Collection<EmployeeProfile> employeeProfiles) {
+    public void setEmployeeProfiles(List<EmployeeProfile> employeeProfiles) {
         this.employeeProfiles = employeeProfiles;
     }
 }
