@@ -9,6 +9,8 @@ import org.dialog.hack.model.*;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by sasini on 5/24/17.
@@ -29,7 +31,7 @@ public class EmployeeProfileResource {
     private UserResource userResource;
     private CompanyResource companyResource; // Company Resource
     private EmployeeSupervisorResource employeeSupervisorResource; //supervisor resource
-    private Collection<EmployeeAttendanceResource> employeeAttendanceResources;
+    private List<EmployeeAttendanceResource> employeeAttendanceResources;
 
 
     public EmployeeProfileResource(EmployeeProfile employeeProfile) {
@@ -44,7 +46,9 @@ public class EmployeeProfileResource {
         this.userResource = new UserResource(employeeProfile.getUser());
         this.companyResource = new CompanyResource(employeeProfile.getCompany());
         this.employeeSupervisorResource = new EmployeeSupervisorResource(employeeProfile.getEmployeeSupervisor());
-        this.employeeAttendanceResources = new EmployeeAttendanceResource(employeeProfile.getEmployeeAttendances());
+        this.employeeAttendanceResources =
+                employeeProfile.getEmployeeAttendances().
+                        stream().map(EmployeeAttendanceResource::new).collect(Collectors.toList());
     }
 
 
@@ -136,11 +140,11 @@ public class EmployeeProfileResource {
         this.employeeSupervisorResource = employeeSupervisorResource;
     }
 
-    public Collection<EmployeeAttendanceResource> getEmployeeAttendanceResources() {
+    public List<EmployeeAttendanceResource> getEmployeeAttendanceResources() {
         return employeeAttendanceResources;
     }
 
-    public void setEmployeeAttendanceResources(Collection<EmployeeAttendanceResource> employeeAttendanceResources) {
+    public void setEmployeeAttendanceResources(List<EmployeeAttendanceResource> employeeAttendanceResources) {
         this.employeeAttendanceResources = employeeAttendanceResources;
     }
 
@@ -153,6 +157,13 @@ public class EmployeeProfileResource {
         employeeProfile.setEmail(email);
         employeeProfile.setEmpMobile(empMobile);
         employeeProfile.setEmpDesignation(empDesignation);
+        employeeProfile.setCreatedDate(createdDate);
+        employeeProfile.setUser(userResource.toUser());
+        employeeProfile.setCompany(companyResource.toCompany());
+        employeeProfile.setEmployeeSupervisor(employeeSupervisorResource.toEmployeeSupervisor());
+        employeeProfile.setEmployeeAttendances(employeeAttendanceResources.stream().
+                map(EmployeeAttendanceResource::toEmployeeAttendance).
+                collect(Collectors.toList()));
 
         return  employeeProfile;
     }
