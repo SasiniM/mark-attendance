@@ -1,13 +1,8 @@
 package org.dialog.hack.rest.resources;
 
-import org.dialog.hack.model.EmployeeProfile;
 import org.dialog.hack.model.EmployeeSupervisor;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by sasini on 5/24/17.
@@ -19,14 +14,17 @@ public class EmployeeSupervisorResource {
     private String supLastname;
     private String supStaffNo;
 
-    Collection<EmployeeProfileResource> employeeProfileResources;
+    List<EmployeeProfileResource> employeeProfileResources;
 
     public EmployeeSupervisorResource(EmployeeSupervisor employeeSupervisor){
         this.id = employeeSupervisor.getId();
         this.supFirstname = employeeSupervisor.getSupFirstname();
         this.supLastname = employeeSupervisor.getSupLastname();
         this.supStaffNo = employeeSupervisor.getSupStaffNo();
-        this.employeeProfileResources = new EmployeeProfileResource(employeeSupervisor.getEmployeeProfiles());
+        this.employeeProfileResources =
+                employeeSupervisor.getEmployeeProfiles().
+                        stream().map(EmployeeProfileResource::new).collect(Collectors.toList());
+
     }
 
     public Long getId() {
@@ -61,11 +59,11 @@ public class EmployeeSupervisorResource {
         this.supStaffNo = supStaffNo;
     }
 
-    public Collection<EmployeeProfileResource> getEmployeeProfileResources() {
+    public List<EmployeeProfileResource> getEmployeeProfileResources() {
         return employeeProfileResources;
     }
 
-    public void setEmployeeProfileResources(Collection<EmployeeProfileResource> employeeProfileResources) {
+    public void setEmployeeProfileResources(List<EmployeeProfileResource> employeeProfileResources) {
         this.employeeProfileResources = employeeProfileResources;
     }
 
@@ -75,7 +73,9 @@ public class EmployeeSupervisorResource {
         employeeSupervisor.setSupFirstname(supFirstname);
         employeeSupervisor.setSupLastname(supLastname);
         employeeSupervisor.setSupStaffNo(supStaffNo);
-        employeeSupervisor.setEmployeeProfiles(employeeProfileResources);
+        employeeSupervisor.setEmployeeProfiles(employeeProfileResources.stream().
+                map(EmployeeProfileResource::toEmployeeProfile).
+                collect(Collectors.toList()));
 
         return  employeeSupervisor;
     }

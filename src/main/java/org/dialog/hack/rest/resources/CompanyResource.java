@@ -1,7 +1,9 @@
 package org.dialog.hack.rest.resources;
 
 import org.dialog.hack.model.Company;
-import java.util.Collection;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by sasini on 5/24/17.
@@ -10,12 +12,14 @@ public class CompanyResource {
     private Long id;
     private String companyName;
 
-    Collection<EmployeeProfileResource> employeeProfileResources;
+    List<EmployeeProfileResource> employeeProfileResources;
 
     public CompanyResource(Company company){
         this.id = company.getId();
         this.companyName = company.getCompanyName();
-        this.employeeProfileResources = new EmployeeProfileResource(company.getEmployeeProfiles());
+        this.employeeProfileResources =
+                company.getEmployeeProfiles().
+                        stream().map(EmployeeProfileResource::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -34,11 +38,11 @@ public class CompanyResource {
         this.companyName = companyName;
     }
 
-    public Collection<EmployeeProfileResource> getEmployeeProfileResources() {
+    public List<EmployeeProfileResource> getEmployeeProfileResources() {
         return employeeProfileResources;
     }
 
-    public void setEmployeeProfileResources(Collection<EmployeeProfileResource> employeeProfileResources) {
+    public void setEmployeeProfileResources(List<EmployeeProfileResource> employeeProfileResources) {
         this.employeeProfileResources = employeeProfileResources;
     }
 
@@ -46,8 +50,9 @@ public class CompanyResource {
         Company company = new Company();
         company.setId(id);
         company.setCompanyName(companyName);
-        company.setEmployeeProfiles(employeeProfileResources);
-
+        company.setEmployeeProfiles(employeeProfileResources.stream().
+                map(EmployeeProfileResource::toEmployeeProfile).
+                collect(Collectors.toList()));
         return  company;
     }
 }

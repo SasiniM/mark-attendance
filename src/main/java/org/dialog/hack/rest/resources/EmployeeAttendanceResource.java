@@ -23,6 +23,7 @@ public class EmployeeAttendanceResource {
         this.attendanceOuttime = employeeAttendance.getAttendanceOuttime();
         this.workedHours = employeeAttendance.getWorkedHours();
         this.employeeProfileResource = new EmployeeProfileResource(employeeAttendance.getEmployeeProfile());
+
     }
 
     public Long getId() {
@@ -80,6 +81,8 @@ public class EmployeeAttendanceResource {
         employeeAttendance.setAttendanceIntime(attendanceIntime);
         employeeAttendance.setAttendanceOuttime(attendanceOuttime);
         employeeAttendance.setWorkedHours(workedHours);
+        employeeAttendance.setEmployeeProfile(employeeProfileResource.toEmployeeProfile());
+
 
         return  employeeAttendance;
     }

@@ -5,11 +5,7 @@
  */
 package org.dialog.hack.rest.resources;
 
-import org.dialog.hack.model.EmployeeAttendance;
-import org.dialog.hack.model.EmployeeProfile;
 import org.dialog.hack.model.User;
-
-import javax.persistence.*;
 
 /**
  * Created by sasini on 5/24/17.
@@ -76,7 +72,8 @@ public class UserResource {
         user.setUsername(username);
         user.setPassword(password);
         user.setUserRole(userRole);
-        user.;
+        user.setEmployeeProfile(employeeProfileResource.toEmployeeProfile());
 
-        return  user;
+        return user;
+    }
 }
