@@ -5,7 +5,11 @@
  */
 package org.dialog.hack.rest.resources;
 
+import org.dialog.hack.model.EmployeeAttendance;
+import org.dialog.hack.model.EmployeeProfile;
 import org.dialog.hack.model.User;
+
+import javax.persistence.*;
 
 /**
  * Created by sasini on 5/24/17.
@@ -13,23 +17,26 @@ import org.dialog.hack.model.User;
  */
 public class UserResource {
 
-    private Integer u_ID;
+    private Long id;
     private String username;
     private String password;
-    private String user_role;
+    private String userRole;
+    EmployeeProfileResource employeeProfileResource;
 
     public UserResource(User user) {
-        this.u_ID = user.getU_ID();
+        this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.user_role = user.getUser_role();
-    }
-    public Integer getU_ID() {
-        return u_ID;
+        this.userRole = user.getUserRole();
+        this.employeeProfileResource = new EmployeeProfileResource(user.getEmployeeProfile());
     }
 
-    public void setU_ID(Integer u_ID) {
-        this.u_ID = u_ID;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -48,12 +55,28 @@ public class UserResource {
         this.password = password;
     }
 
-    public String getUser_role() {
-        return user_role;
+    public String getUserRole() {
+        return userRole;
     }
 
-    public void setUser_role(String user_role) {
-        this.user_role = user_role;
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
+    public EmployeeProfileResource getEmployeeProfileResource() {
+        return employeeProfileResource;
+    }
+
+    public void setEmployeeProfileResource(EmployeeProfileResource employeeProfileResource) {
+        this.employeeProfileResource = employeeProfileResource;
+    }
+    public User toUser() {
+        User user = new User();
+        user.setId(id);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setUserRole(userRole);
+        user.;
+
+        return  user;
 }

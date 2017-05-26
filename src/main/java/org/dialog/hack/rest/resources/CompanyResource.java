@@ -1,32 +1,53 @@
 package org.dialog.hack.rest.resources;
 
 import org.dialog.hack.model.Company;
+import java.util.Collection;
 
 /**
  * Created by sasini on 5/24/17.
  */
 public class CompanyResource {
-    private Integer company_ID;
-    private String getCompany_name;
+    private Long id;
+    private String companyName;
+
+    Collection<EmployeeProfileResource> employeeProfileResources;
 
     public CompanyResource(Company company){
-        this.company_ID = company.getCompany_ID();
-        this.getCompany_name = company.getGetCompany_name();
+        this.id = company.getId();
+        this.companyName = company.getCompanyName();
+        this.employeeProfileResources = new EmployeeProfileResource(company.getEmployeeProfiles());
     }
 
-    public Integer getCompany_ID() {
-        return company_ID;
+    public Long getId() {
+        return id;
     }
 
-    public void setCompany_ID(Integer company_ID) {
-        this.company_ID = company_ID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getGetCompany_name() {
-        return getCompany_name;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setGetCompany_name(String getCompany_name) {
-        this.getCompany_name = getCompany_name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public Collection<EmployeeProfileResource> getEmployeeProfileResources() {
+        return employeeProfileResources;
+    }
+
+    public void setEmployeeProfileResources(Collection<EmployeeProfileResource> employeeProfileResources) {
+        this.employeeProfileResources = employeeProfileResources;
+    }
+
+    public Company toCompany() {
+        Company company = new Company();
+        company.setId(id);
+        company.setCompanyName(companyName);
+        company.setEmployeeProfiles(employeeProfileResources);
+
+        return  company;
     }
 }

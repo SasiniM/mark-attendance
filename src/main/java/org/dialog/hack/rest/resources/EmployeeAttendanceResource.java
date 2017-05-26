@@ -1,8 +1,6 @@
 package org.dialog.hack.rest.resources;
 
 import org.dialog.hack.model.EmployeeAttendance;
-
-import javax.persistence.Column;
 import java.sql.Time;
 import java.util.Date;
 
@@ -73,5 +71,16 @@ public class EmployeeAttendanceResource {
 
     public void setEmployeeProfileResource(EmployeeProfileResource employeeProfileResource) {
         this.employeeProfileResource = employeeProfileResource;
+    }
+
+    public EmployeeAttendance toEmployeeAttendance() {
+        EmployeeAttendance employeeAttendance = new EmployeeAttendance();
+        employeeAttendance.setId(id);
+        employeeAttendance.setAttendanceDate(attendanceDate);
+        employeeAttendance.setAttendanceIntime(attendanceIntime);
+        employeeAttendance.setAttendanceOuttime(attendanceOuttime);
+        employeeAttendance.setWorkedHours(workedHours);
+
+        return  employeeAttendance;
     }
 }
