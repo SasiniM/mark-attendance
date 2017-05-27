@@ -19,6 +19,9 @@ public class UserResource {
     private String userRole;
     EmployeeProfileResource employeeProfileResource;
 
+    public UserResource() {
+    }
+
     public UserResource(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
@@ -72,7 +75,9 @@ public class UserResource {
         user.setUsername(username);
         user.setPassword(password);
         user.setUserRole(userRole);
-        user.setEmployeeProfile(employeeProfileResource.toEmployeeProfile());
+        if (employeeProfileResource != null) {
+            user.setEmployeeProfile(employeeProfileResource.toEmployeeProfile());
+        }
 
         return user;
     }
