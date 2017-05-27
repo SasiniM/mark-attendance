@@ -46,12 +46,22 @@ public class EmployeeProfileResource {
         this.empMobile = employeeProfile.getEmpMobile();
         this.empDesignation = employeeProfile.getEmpDesignation();
         this.createdDate = employeeProfile.getCreatedDate();
-        this.userResource = new UserResource(employeeProfile.getUser());
-        this.companyResource = new CompanyResource(employeeProfile.getCompany());
-        this.employeeSupervisorResource = new EmployeeSupervisorResource(employeeProfile.getEmployeeSupervisor());
-        this.employeeAttendanceResources =
-                employeeProfile.getEmployeeAttendances().
-                        stream().map(EmployeeAttendanceResource::new).collect(Collectors.toList());
+        if (employeeProfile.getUser() != null) {
+            this.userResource = new UserResource(employeeProfile.getUser());
+        }
+        if (employeeProfile.getCompany() != null) {
+            this.companyResource = new CompanyResource(employeeProfile.getCompany());
+        }
+
+        if (employeeProfile.getEmployeeSupervisor() != null) {
+            this.employeeSupervisorResource = new EmployeeSupervisorResource(employeeProfile.getEmployeeSupervisor());
+        }
+
+        if (employeeProfile.getEmployeeAttendances() != null) {
+            this.employeeAttendanceResources =
+                    employeeProfile.getEmployeeAttendances().
+                            stream().map(EmployeeAttendanceResource::new).collect(Collectors.toList());
+        }
     }
 
 
@@ -161,12 +171,21 @@ public class EmployeeProfileResource {
         employeeProfile.setEmpMobile(empMobile);
         employeeProfile.setEmpDesignation(empDesignation);
         employeeProfile.setCreatedDate(createdDate);
-        employeeProfile.setUser(userResource != null ? userResource.toUser() : null);
-        employeeProfile.setCompany(companyResource != null ? companyResource.toCompany() : null);
-        employeeProfile.setEmployeeSupervisor(employeeSupervisorResource != null ? employeeSupervisorResource.toEmployeeSupervisor(): null);
-        employeeProfile.setEmployeeAttendances(employeeAttendanceResources != null ? employeeAttendanceResources.stream().
-                map(EmployeeAttendanceResource::toEmployeeAttendance).
-                collect(Collectors.toList()) : null);
+
+        if (userResource != null) {
+            employeeProfile.setUser(userResource.toUser());
+        }
+        if (companyResource != null) {
+            employeeProfile.setCompany(companyResource.toCompany());
+        }
+        if (employeeSupervisorResource != null) {
+            employeeProfile.setEmployeeSupervisor(employeeSupervisorResource.toEmployeeSupervisor());
+        }
+
+        if (employeeAttendanceResources != null) {
+            employeeProfile.setEmployeeAttendances(employeeAttendanceResources.stream().
+                    map(EmployeeAttendanceResource::toEmployeeAttendance).collect(Collectors.toList()));
+        }
 
         return  employeeProfile;
     }
