@@ -11,4 +11,7 @@ import java.util.List;
  */
 public interface EmployeeProfileRepository extends CrudRepository<EmployeeProfile, Long> {
 
+    @Query("SELECT p FROM EmployeeProfile p WHERE p.empFirstname = ?1 AND p.empLastname = ?2")
+    List<EmployeeProfile> findByEmpFirstnameAndEmpLastname(String empFirstname, String empLastname);
 }
+

@@ -5,9 +5,9 @@
  */
 package org.dialog.hack.service;
 
-import org.dialog.hack.model.Employee_Profile;
-import org.dialog.hack.repository.Employee_ProfileRepository;
-import org.dialog.hack.rest.resources.Employee_ProfileResource;
+import org.dialog.hack.model.EmployeeProfile;
+import org.dialog.hack.repository.EmployeeProfileRepository;
+import org.dialog.hack.rest.resources.EmployeeProfileResource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -20,14 +20,13 @@ import java.util.stream.Collectors;
 public class EmployeeService {
 
     @Autowired
-    Employee_ProfileRepository employeeRepository;
+    EmployeeProfileRepository employeeRepository;
 
-    public List<Employee_ProfileResource> getemployeeProfiles(String firstName, String lastName) {
+    public List<EmployeeProfileResource> getemployeeProfiles(String firstName, String lastName) {
         //List<Employee_ProfileResource> employeeProfileResourceList = new ArrayList<Employee_ProfileResource>();
-        List<Employee_Profile> employee_profiles =
-                employeeRepository.findName(firstName, lastName);
+        List<EmployeeProfile> employeeProfiles = employeeRepository.findByEmpFirstnameAndEmpLastname(firstName, lastName);
 
-        return employee_profiles.stream().map(Employee_ProfileResource::new).collect(Collectors.toList());
+        return employeeProfiles.stream().map(EmployeeProfileResource::new).collect(Collectors.toList());
     }
 
 
