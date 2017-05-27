@@ -17,7 +17,6 @@ public class UserResource {
     private String username;
     private String password;
     private String userRole;
-    EmployeeProfileResource employeeProfileResource;
 
     public UserResource() {
     }
@@ -27,7 +26,6 @@ public class UserResource {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.userRole = user.getUserRole();
-        this.employeeProfileResource = new EmployeeProfileResource(user.getEmployeeProfile());
     }
 
     public Long getId() {
@@ -62,22 +60,12 @@ public class UserResource {
         this.userRole = userRole;
     }
 
-    public EmployeeProfileResource getEmployeeProfileResource() {
-        return employeeProfileResource;
-    }
-
-    public void setEmployeeProfileResource(EmployeeProfileResource employeeProfileResource) {
-        this.employeeProfileResource = employeeProfileResource;
-    }
     public User toUser() {
         User user = new User();
         user.setId(id);
         user.setUsername(username);
         user.setPassword(password);
         user.setUserRole(userRole);
-        if (employeeProfileResource != null) {
-            user.setEmployeeProfile(employeeProfileResource.toEmployeeProfile());
-        }
 
         return user;
     }
