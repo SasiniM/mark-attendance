@@ -21,13 +21,20 @@ public class EmployeeService {
 
     @Autowired
     EmployeeProfileRepository employeeRepository;
+    EmployeeProfile employeeProfile;
 
-    public List<EmployeeProfileResource> getemployeeProfiles(String firstName, String lastName) {
+    public List<EmployeeProfileResource> getEmployeeProfiles(String firstName, String lastName) {
         //List<Employee_ProfileResource> employeeProfileResourceList = new ArrayList<Employee_ProfileResource>();
         List<EmployeeProfile> employeeProfiles = employeeRepository.findByEmpFirstnameAndEmpLastname(firstName, lastName);
 
         return employeeProfiles.stream().map(EmployeeProfileResource::new).collect(Collectors.toList());
     }
 
-
+    public boolean saveEmployeeProfile(EmployeeProfileResource employeeProfileResource){
+        employeeProfile = employeeRepository.save(employeeProfileResource.toEmployeeProfile());
+        if (employeeProfile == null)
+            return false;
+        else
+            return true;
+    }
 }

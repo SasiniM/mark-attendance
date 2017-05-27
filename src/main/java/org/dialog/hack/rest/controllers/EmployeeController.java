@@ -21,7 +21,7 @@ public class EmployeeController {
     @Path("/{firstname}/{lastname}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployeeProfiles(@PathParam("firstname") String firstName, @PathParam("lastname") String lastName){
-        return Response.status(200).entity(employeeService.getemployeeProfiles(firstName, lastName)).build();
+        return Response.status(200).entity(employeeService.getEmployeeProfiles(firstName, lastName)).build();
     }
 
     @PUT
@@ -29,7 +29,15 @@ public class EmployeeController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createEmployeeProfile(EmployeeProfileResource profileResource) {
-        return Response.status(200).entity("").build();
+        boolean isSuccess = employeeService.saveEmployeeProfile(profileResource);
+
+        if (isSuccess == true)
+            return Response.status(200).entity("Transaction successful").build();
+        else
+            return Response.status(200).entity("Transaction faild").build();
+
     }
+
+
 
 }
