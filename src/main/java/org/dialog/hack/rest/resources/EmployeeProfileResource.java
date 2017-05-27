@@ -34,6 +34,9 @@ public class EmployeeProfileResource {
     private List<EmployeeAttendanceResource> employeeAttendanceResources;
 
 
+    public EmployeeProfileResource() {
+    }
+
     public EmployeeProfileResource(EmployeeProfile employeeProfile) {
         this.id = employeeProfile.getId();
         this.empStaffNo = employeeProfile.getEmpStaffNo();
@@ -158,12 +161,12 @@ public class EmployeeProfileResource {
         employeeProfile.setEmpMobile(empMobile);
         employeeProfile.setEmpDesignation(empDesignation);
         employeeProfile.setCreatedDate(createdDate);
-        employeeProfile.setUser(userResource.toUser());
-        employeeProfile.setCompany(companyResource.toCompany());
-        employeeProfile.setEmployeeSupervisor(employeeSupervisorResource.toEmployeeSupervisor());
-        employeeProfile.setEmployeeAttendances(employeeAttendanceResources.stream().
+        employeeProfile.setUser(userResource != null ? userResource.toUser() : null);
+        employeeProfile.setCompany(companyResource != null ? companyResource.toCompany() : null);
+        employeeProfile.setEmployeeSupervisor(employeeSupervisorResource != null ? employeeSupervisorResource.toEmployeeSupervisor(): null);
+        employeeProfile.setEmployeeAttendances(employeeAttendanceResources != null ? employeeAttendanceResources.stream().
                 map(EmployeeAttendanceResource::toEmployeeAttendance).
-                collect(Collectors.toList()));
+                collect(Collectors.toList()) : null);
 
         return  employeeProfile;
     }

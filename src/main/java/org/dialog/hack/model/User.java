@@ -19,7 +19,7 @@ public class User {
     private String userRole;
 
     @OneToOne
-    @JoinColumn(name = "Emp_id", referencedColumnName = "ID")
+    @JoinColumn(name = "Emp_Id", referencedColumnName = "ID")
     EmployeeProfile employeeProfile;
 
     /*@OneToOne
