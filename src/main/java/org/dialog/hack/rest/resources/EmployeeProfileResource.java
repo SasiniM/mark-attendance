@@ -7,7 +7,6 @@ package org.dialog.hack.rest.resources;
 
 import org.dialog.hack.model.*;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,10 +27,10 @@ public class EmployeeProfileResource {
     private String empDesignation;
     private Date createdDate;
 
-    private UserResource userResource;
-    private CompanyResource companyResource; // Company Resource
-    private EmployeeSupervisorResource employeeSupervisorResource; //supervisor resource
-    private List<EmployeeAttendanceResource> employeeAttendanceResources;
+    private UserResource user;
+    private CompanyResource company; // Company Resource
+    private EmployeeSupervisorResource employeeSupervisor; //supervisor resource
+    private List<EmployeeAttendanceResource> employeeAttendance;
 
 
     public EmployeeProfileResource() {
@@ -47,18 +46,18 @@ public class EmployeeProfileResource {
         this.empDesignation = employeeProfile.getEmpDesignation();
         this.createdDate = employeeProfile.getCreatedDate();
         if (employeeProfile.getUser() != null) {
-            this.userResource = new UserResource(employeeProfile.getUser());
+            this.user = new UserResource(employeeProfile.getUser());
         }
         if (employeeProfile.getCompany() != null) {
-            this.companyResource = new CompanyResource(employeeProfile.getCompany());
+            this.company = new CompanyResource(employeeProfile.getCompany());
         }
 
         if (employeeProfile.getEmployeeSupervisor() != null) {
-            this.employeeSupervisorResource = new EmployeeSupervisorResource(employeeProfile.getEmployeeSupervisor());
+            this.employeeSupervisor = new EmployeeSupervisorResource(employeeProfile.getEmployeeSupervisor());
         }
 
         if (employeeProfile.getEmployeeAttendances() != null) {
-            this.employeeAttendanceResources =
+            this.employeeAttendance =
                     employeeProfile.getEmployeeAttendances().
                             stream().map(EmployeeAttendanceResource::new).collect(Collectors.toList());
         }
@@ -129,36 +128,36 @@ public class EmployeeProfileResource {
         this.createdDate = createdDate;
     }
 
-    public UserResource getUserResource() {
-        return userResource;
+    public UserResource getUser() {
+        return user;
     }
 
-    public void setUserResource(UserResource userResource) {
-        this.userResource = userResource;
+    public void setUser(UserResource user) {
+        this.user = user;
     }
 
-    public CompanyResource getCompanyResource() {
-        return companyResource;
+    public CompanyResource getCompany() {
+        return company;
     }
 
-    public void setCompanyResource(CompanyResource companyResource) {
-        this.companyResource = companyResource;
+    public void setCompany(CompanyResource company) {
+        this.company = company;
     }
 
-    public EmployeeSupervisorResource getEmployeeSupervisorResource() {
-        return employeeSupervisorResource;
+    public EmployeeSupervisorResource getEmployeeSupervisor() {
+        return employeeSupervisor;
     }
 
-    public void setEmployeeSupervisorResource(EmployeeSupervisorResource employeeSupervisorResource) {
-        this.employeeSupervisorResource = employeeSupervisorResource;
+    public void setEmployeeSupervisor(EmployeeSupervisorResource employeeSupervisor) {
+        this.employeeSupervisor = employeeSupervisor;
     }
 
-    public List<EmployeeAttendanceResource> getEmployeeAttendanceResources() {
-        return employeeAttendanceResources;
+    public List<EmployeeAttendanceResource> getEmployeeAttendance() {
+        return employeeAttendance;
     }
 
-    public void setEmployeeAttendanceResources(List<EmployeeAttendanceResource> employeeAttendanceResources) {
-        this.employeeAttendanceResources = employeeAttendanceResources;
+    public void setEmployeeAttendance(List<EmployeeAttendanceResource> employeeAttendance) {
+        this.employeeAttendance = employeeAttendance;
     }
 
     public EmployeeProfile toEmployeeProfile() {
@@ -172,18 +171,18 @@ public class EmployeeProfileResource {
         employeeProfile.setEmpDesignation(empDesignation);
         employeeProfile.setCreatedDate(createdDate);
 
-        if (userResource != null) {
-            employeeProfile.setUser(userResource.toUser());
+        if (user != null) {
+            employeeProfile.setUser(user.toUser());
         }
-        if (companyResource != null) {
-            employeeProfile.setCompany(companyResource.toCompany());
+        if (company != null) {
+            employeeProfile.setCompany(company.toCompany());
         }
-        if (employeeSupervisorResource != null) {
-            employeeProfile.setEmployeeSupervisor(employeeSupervisorResource.toEmployeeSupervisor());
+        if (employeeSupervisor != null) {
+            employeeProfile.setEmployeeSupervisor(employeeSupervisor.toEmployeeSupervisor());
         }
 
-        if (employeeAttendanceResources != null) {
-            employeeProfile.setEmployeeAttendances(employeeAttendanceResources.stream().
+        if (employeeAttendance != null) {
+            employeeProfile.setEmployeeAttendances(employeeAttendance.stream().
                     map(EmployeeAttendanceResource::toEmployeeAttendance).collect(Collectors.toList()));
         }
 
