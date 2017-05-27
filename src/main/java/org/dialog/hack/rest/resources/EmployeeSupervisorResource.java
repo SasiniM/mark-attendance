@@ -16,14 +16,17 @@ public class EmployeeSupervisorResource {
 
     List<EmployeeProfileResource> employeeProfileResources;
 
+    public  EmployeeSupervisorResource(){}
     public EmployeeSupervisorResource(EmployeeSupervisor employeeSupervisor){
         this.id = employeeSupervisor.getId();
         this.supFirstname = employeeSupervisor.getSupFirstname();
         this.supLastname = employeeSupervisor.getSupLastname();
         this.supStaffNo = employeeSupervisor.getSupStaffNo();
-        this.employeeProfileResources =
-                employeeSupervisor.getEmployeeProfiles().
-                        stream().map(EmployeeProfileResource::new).collect(Collectors.toList());
+        if(employeeSupervisor.getEmployeeProfiles() != null) {
+            this.employeeProfileResources =
+                    employeeSupervisor.getEmployeeProfiles().
+                            stream().map(EmployeeProfileResource::new).collect(Collectors.toList());
+        }
 
     }
 
@@ -73,9 +76,11 @@ public class EmployeeSupervisorResource {
         employeeSupervisor.setSupFirstname(supFirstname);
         employeeSupervisor.setSupLastname(supLastname);
         employeeSupervisor.setSupStaffNo(supStaffNo);
-        employeeSupervisor.setEmployeeProfiles(employeeProfileResources.stream().
-                map(EmployeeProfileResource::toEmployeeProfile).
-                collect(Collectors.toList()));
+        if (employeeProfileResources != null) {
+            employeeSupervisor.setEmployeeProfiles(employeeProfileResources.stream().
+                    map(EmployeeProfileResource::toEmployeeProfile).
+                    collect(Collectors.toList()));
+        }
 
         return  employeeSupervisor;
     }

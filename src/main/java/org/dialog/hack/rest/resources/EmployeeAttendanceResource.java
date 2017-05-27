@@ -16,14 +16,17 @@ public class EmployeeAttendanceResource {
 
     private EmployeeProfileResource employeeProfileResource;
 
+    public EmployeeAttendanceResource(){}
+
     public EmployeeAttendanceResource(EmployeeAttendance employeeAttendance){
         this.id = employeeAttendance.getId();
         this.attendanceDate = employeeAttendance.getAttendanceDate();
         this.attendanceIntime= employeeAttendance.getAttendanceIntime();
         this.attendanceOuttime = employeeAttendance.getAttendanceOuttime();
         this.workedHours = employeeAttendance.getWorkedHours();
-        this.employeeProfileResource = new EmployeeProfileResource(employeeAttendance.getEmployeeProfile());
-
+        if (employeeAttendance.getEmployeeProfile() != null) {
+            this.employeeProfileResource = new EmployeeProfileResource(employeeAttendance.getEmployeeProfile());
+        }
     }
 
     public Long getId() {
@@ -81,8 +84,9 @@ public class EmployeeAttendanceResource {
         employeeAttendance.setAttendanceIntime(attendanceIntime);
         employeeAttendance.setAttendanceOuttime(attendanceOuttime);
         employeeAttendance.setWorkedHours(workedHours);
-        employeeAttendance.setEmployeeProfile(employeeProfileResource.toEmployeeProfile());
-
+        if (employeeProfileResource != null) {
+            employeeAttendance.setEmployeeProfile(employeeProfileResource.toEmployeeProfile());
+        }
 
         return  employeeAttendance;
     }
