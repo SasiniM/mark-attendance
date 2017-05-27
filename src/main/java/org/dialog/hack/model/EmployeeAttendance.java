@@ -8,21 +8,23 @@ import java.util.Date;
  * Created by sasini on 5/23/17.
  */
 @Entity
+@Table(name = "Employee_Attendance")
 public class EmployeeAttendance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
-    @Column(name = "attendance_Date")
+    @Column(name = "Attendance_Date")
     private Date attendanceDate;
-    @Column(name = "attendance_intime")
+    @Column(name = "Attendance_Intime")
     private Time attendanceIntime;
-    @Column(name = "outtime")
+    @Column(name = "Attendance_Outtime")
     private Time attendanceOuttime;
-    @Column(name = "worked_hours")
+    @Column(name = "Worked_Hours")
     private Double workedHours;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employeeProfile_id", referencedColumnName = "id")
+    @JoinColumn(name = "Emp_Profile_ID", referencedColumnName = "ID")
     EmployeeProfile employeeProfile;
 
     public Long getId() {

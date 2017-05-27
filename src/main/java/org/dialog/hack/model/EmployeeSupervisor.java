@@ -12,15 +12,16 @@ import java.util.List;
 public class EmployeeSupervisor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "sup_firstname", nullable = false)
+    @Column(name = "Sup_Firstname", nullable = false)
     private String supFirstname;
 
-    @Column(name = "sup_lastname")
+    @Column(name = "Sup_Lastname")
     private String supLastname;
 
-    @Column(name = "sup_staffNo", nullable = false)
+    @Column(name = "Sup_StaffNo", nullable = false)
     private String supStaffNo;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "employeeSupervisor", fetch = FetchType.EAGER)

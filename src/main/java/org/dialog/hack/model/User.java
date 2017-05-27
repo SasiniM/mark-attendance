@@ -9,16 +9,17 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
-    @Column(name = "username")
+    @Column(name = "Username")
     private String username;
-    @Column(name = "password")
+    @Column(name = "Password")
     private String password;
-    @Column(name = "user_role")
+    @Column(name = "User_Role")
     private String userRole;
 
-    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.EAGER)
-    @JoinColumn(name = "employeeProfile_id", referencedColumnName = "id")
+    @OneToOne
+    @JoinColumn(name = "Emp_id", referencedColumnName = "ID")
     EmployeeProfile employeeProfile;
 
     /*@OneToOne

@@ -12,32 +12,33 @@ import java.util.List;
 public class EmployeeProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
     //private String emp_profilepic;
-    @Column(name = "emp_StaffNO")
+    @Column(name = "Emp_StaffNO")
     private String empStaffNo;
-    @Column(name = "emp_firstname")
+    @Column(name = "Emp_Firstname")
     private String empFirstname;
-    @Column(name = "emp_lastname")
+    @Column(name = "Emp_Lastname")
     private String empLastname;
-    @Column(name = "email")
+    @Column(name = "Email")
     private String email;
-    @Column(name = "emp_mobile")
+    @Column(name = "Emp_Mobile")
     private String empMobile;
-    @Column(name = "emp_designation")
+    @Column(name = "Emp_Designation")
     private String empDesignation;
-    @Column(name = "create_time")
+    @Column(name = "Create_Time")
     private Date createdDate;
 
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "employeeProfile", fetch = FetchType.EAGER)
     User user;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @JoinColumn(name = "Company_ID", referencedColumnName = "ID")
     Company company;
 
     @ManyToOne
-    @JoinColumn(name = "employeeSupervisor_id", referencedColumnName = "id")
+    @JoinColumn(name = "Emp_Sup_ID", referencedColumnName = "ID")
     EmployeeSupervisor employeeSupervisor;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "employeeProfile", fetch = FetchType.EAGER)

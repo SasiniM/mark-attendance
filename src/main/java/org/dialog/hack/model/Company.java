@@ -7,12 +7,15 @@ import java.util.List;
  * Created by sasini on 5/23/17.
  */
 @Entity
+@Table(name = "Company")
 public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
-    @Column(name = "company_name")
+
+    @Column(name = "Company_Name")
     private String companyName;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "company", fetch = FetchType.EAGER)
