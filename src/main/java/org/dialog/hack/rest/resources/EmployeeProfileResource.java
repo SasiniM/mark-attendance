@@ -56,11 +56,6 @@ public class EmployeeProfileResource {
             this.employeeSupervisor = new EmployeeSupervisorResource(employeeProfile.getEmployeeSupervisor());
         }
 
-        if (employeeProfile.getEmployeeAttendances() != null) {
-            this.employeeAttendance =
-                    employeeProfile.getEmployeeAttendances().
-                            stream().map(EmployeeAttendanceResource::new).collect(Collectors.toList());
-        }
     }
 
 
@@ -179,11 +174,6 @@ public class EmployeeProfileResource {
         }
         if (employeeSupervisor != null) {
             employeeProfile.setEmployeeSupervisor(employeeSupervisor.toEmployeeSupervisor());
-        }
-
-        if (employeeAttendance != null) {
-            employeeProfile.setEmployeeAttendances(employeeAttendance.stream().
-                    map(EmployeeAttendanceResource::toEmployeeAttendance).collect(Collectors.toList()));
         }
 
         return  employeeProfile;
