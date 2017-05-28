@@ -1,8 +1,8 @@
 package org.dialog.hack.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Time;
-import java.util.Date;
 
 /**
  * Created by sasini on 5/23/17.
@@ -23,7 +23,7 @@ public class EmployeeAttendance {
     @Column(name = "Worked_Hours")
     private Double workedHours;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "Emp_Profile_ID", referencedColumnName = "ID")
     EmployeeProfile employeeProfile;
 
