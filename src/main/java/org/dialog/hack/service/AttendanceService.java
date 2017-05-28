@@ -1,17 +1,22 @@
 package org.dialog.hack.service;
 
 import org.dialog.hack.model.EmployeeAttendance;
+import org.dialog.hack.model.User;
 import org.dialog.hack.repository.EmployeeAttendanceRepository;
-import org.dialog.hack.repository.specification.employeeattendance.EmployeeAttendanceSpecification;
+import org.dialog.hack.repository.UserRepository;
+import org.dialog.hack.repository.specification.employeeattendance.EmployeeAttendanceGetSpecification;
+import org.dialog.hack.repository.specification.employeeattendance.EmployeeAttendanceMarkSpecification;
 import org.dialog.hack.rest.resources.EmployeeAttendanceResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jca.cci.core.InteractionCallback;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.temporal.ChronoField;
+import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -21,10 +26,30 @@ public class AttendanceService {
     @Autowired
     EmployeeAttendanceRepository attendanceRepository;
 
-    public boolean saveEmployeeAttendance(EmployeeAttendanceResource employeeAttendanceResource){
+    @Autowired
+    UserRepository userRepository;
+
+    public boolean saveEmployeeAttendance(String username){
         EmployeeAttendance employeeAttendance = null;
         try {
-            employeeAttendance = attendanceRepository.save(employeeAttendanceResource.toEmployeeAttendance());
+            Date date = new Date(System.currentTimeMillis());
+            employeeAttendance = attendanceRepository.findOne(new EmployeeAttendanceMarkSpecification(username, date));
+            if (employeeAttendance == null) {
+                User user = userRepository.findByUsername(username);
+                employeeAttendance = new EmployeeAttendance();
+                employeeAttendance.setAttendanceDate(new Date(Calendar.getInstance().getTimeInMillis()));
+                employeeAttendance.setAttendanceIntime(new Time(employeeAttendance.getAttendanceDate().getTime()));
+                employeeAttendance.setEmployeeProfile(user.getEmployeeProfile());
+            } else if (employeeAttendance.getAttendanceOuttime() == null) {
+                employeeAttendance.setAttendanceOuttime(new Time(System.currentTimeMillis()));
+                Double workHours = (employeeAttendance.getAttendanceOuttime().toLocalTime().getLong(ChronoField.MINUTE_OF_DAY) -
+                        employeeAttendance.getAttendanceIntime().toLocalTime().getLong(ChronoField.MINUTE_OF_DAY)) / 60.0;
+
+                employeeAttendance.setWorkedHours(workHours);
+            } else {
+
+            }
+            employeeAttendance = attendanceRepository.save(employeeAttendance);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -35,10 +60,7 @@ public class AttendanceService {
             return true;
     }
 
-
-    public List<EmployeeAttendance> getEmployeeAttendances(String year, String month, String firstName, String lastName) {
-        Date startDate = new Date();
-        Date endDate = new Date();
+    public List<EmployeeAttendanceResource> getEmployeeAttendances(String year, String month, String firstName, String lastName) {
         int mnth = 0;
         switch (month){
             case "January":mnth=1;
@@ -73,14 +95,17 @@ public class AttendanceService {
 
         try {
             //startDate = DateFormat.getInstance().parse(startDateString);
-            startDate = df.parse(startDateString);
-            startDate = df.parse(endDateString);
+            Date startDate = new Date(df.parse(startDateString).getTime());
+            Date endDate = new Date(df.parse(endDateString).getTime());
             //endDate = DateFormat.getDateInstance().parse(endDateString);
-        } catch (ParseException e) {
+            List<EmployeeAttendance> attendances =
+                    attendanceRepository.findAll(new EmployeeAttendanceGetSpecification(startDate, endDate, firstName, lastName));
+            return attendances.stream().map(EmployeeAttendanceResource::new).collect(Collectors.toList());
+        } catch (Exception e) {
             e.printStackTrace();
+            return  null;
         }
 
-        return attendanceRepository.findAll(new EmployeeAttendanceSpecification(startDate, endDate, firstName, lastName));
 
     }
 }

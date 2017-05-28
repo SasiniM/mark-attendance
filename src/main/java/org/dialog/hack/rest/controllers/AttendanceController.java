@@ -26,12 +26,11 @@ public class AttendanceController {
         return Response.status(200).entity(attendanceService.getEmployeeAttendances(year, month, firstName, lastName)).build();
     }
 
-@PUT
-@Path("/")
+@GET
+@Path("/{username}")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-public Response createEmployeeAttendance(EmployeeAttendanceResource attendanceResource) {
-    boolean isSuccess = attendanceService.saveEmployeeAttendance(attendanceResource);
+public Response createEmployeeAttendance(@PathParam("username") String username) {
+    boolean isSuccess = attendanceService.saveEmployeeAttendance(username);
 
     if (isSuccess == true)
         return Response.status(200).entity("Transaction successful").build();
