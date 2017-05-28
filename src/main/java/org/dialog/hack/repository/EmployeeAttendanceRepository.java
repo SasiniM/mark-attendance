@@ -2,6 +2,7 @@ package org.dialog.hack.repository;
 
 import org.dialog.hack.model.EmployeeAttendance;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.List;
 /**
  * Created by sasini on 5/24/17.
  */
-public interface EmployeeAttendanceRepository extends CrudRepository<EmployeeAttendance, Integer> {
+public interface EmployeeAttendanceRepository extends
+        CrudRepository<EmployeeAttendance, Long>, JpaSpecificationExecutor<EmployeeAttendance> {
 
     List<EmployeeAttendance> findAll(Specification<EmployeeAttendance> specification);
 }
