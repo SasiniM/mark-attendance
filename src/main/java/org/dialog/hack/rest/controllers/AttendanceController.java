@@ -19,6 +19,13 @@ public class AttendanceController {
     @Autowired
     AttendanceService attendanceService;
 
+    @GET
+    @Path("/{year}/{month}/{firstname}/{lastname}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEmployeeAttendances(@PathParam("year") String year, @PathParam("month") String month, @PathParam("firstname") String firstName, @PathParam("lastname") String lastName){
+        return Response.status(200).entity(attendanceService.getEmployeeAttendances(year, month, firstName, lastName)).build();
+    }
+
 @PUT
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
