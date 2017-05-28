@@ -1,8 +1,8 @@
 package org.dialog.hack.rest.resources;
 
 import org.dialog.hack.model.EmployeeAttendance;
+import java.sql.Date;
 import java.sql.Time;
-import java.util.Date;
 
 /**
  * Created by sasini on 5/24/17.
