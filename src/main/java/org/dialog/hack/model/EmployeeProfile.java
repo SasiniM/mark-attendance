@@ -1,7 +1,6 @@
 package org.dialog.hack.model;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +8,7 @@ import java.util.List;
  * Created by sasini on 5/22/17.
  */
 @Entity
+@Table(name = "Employee_Profile")
 public class EmployeeProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
