@@ -10,7 +10,8 @@
   <properties>
   <jersey.version>2.25.1</jersey.version>
     <spring.version>4.3.8.RELEASE</spring.version>
-    <spring.data.version>1.11.1</spring.data.version>
+    <spring.data.version>1.11.3.RELEASE</spring.data.version>
+    <spring.security.version>4.2.2.RELEASE</spring.security.version>
     <mysql.connector.version>6.0.6</mysql.connector.version>
     <dbcp-version>1.4</dbcp-version>
   </properties>
@@ -105,7 +106,7 @@
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
-      <version>1.11.3.RELEASE</version>
+      <version>${spring.data.version}</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
@@ -117,6 +118,23 @@
       <artifactId>commons-dbcp</artifactId>
       <version>${dbcp-version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.7.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>
