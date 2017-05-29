@@ -4,21 +4,25 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:s="http://www.springframework.org/schema/security"
        xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://localhost:3306/captureAttendance"
-          p:username="root" p:password="pelpola"/>
+          p:username="root" p:password="password"/>
 
     <bean id="employeeService" class="org.dialog.hack.service.EmployeeService"/>
     <bean id="attendanceService" class="org.dialog.hack.service.AttendanceService"/>
     <bean id="supervisorService" class="org.dialog.hack.service.SupervisorService"/>
+
+    <bean id="userService" class="org.dialog.hack.util.security.UserService"/>
 
     <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
@@ -50,6 +54,37 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
+
+    <bean id ="tokenAuthService" class="org.dialog.hack.util.security.TokenAuthenticationService">
+        <constructor-arg name="secret" value="SasiniMadumali2017#"/>
+        <constructor-arg name="userService" ref="userService"/>
+    </bean>
+    <bean id = "authenticationFilter" class="org.dialog.hack.util.security.JWTAuthenticationFilter">
+        <constructor-arg name="authenticationService" ref="tokenAuthService"/>
+    </bean>
+
+    <bean id="jwtLoginFilter" class="org.dialog.hack.util.security.JWTLoginFilter">
+        <constructor-arg name="authenticationManager" ref="authenticationManager"/>
+        <constructor-arg name="tokenAuthenticationService" ref="tokenAuthService"/>
+        <constructor-arg name="url" value="/rest/auth"/>
+    </bean>
+
+    <bean id = "corsResponseFilter" class="org.dialog.hack.util.CorsResponseFilter"/>
+
+    <s:http auto-config="true" >
+        <s:intercept-url pattern="rest/**" access="ROLE_ADMIN"/>
+        <s:intercept-url pattern="rest/auth" access="permitAll" method="POST"/>
+        <s:custom-filter ref="corsResponseFilter" before="PRE_AUTH_FILTER"/>
+        <s:custom-filter position="PRE_AUTH_FILTER" ref="jwtLoginFilter"/>
+        <s:custom-filter after="PRE_AUTH_FILTER" ref="authenticationFilter"/>
+        <s:csrf disabled="true"/>
+    </s:http>
+
+    <s:authentication-manager alias="authenticationManager">
+        <s:authentication-provider user-service-ref="userService"/>
+    </s:authentication-manager>
+
+
 
     <tx:annotation-driven/>
 
