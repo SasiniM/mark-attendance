@@ -1,11 +1,13 @@
 package org.dialog.hack.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by sasini on 5/22/17.
  */
 @Entity
+@Table(name = "User")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,12 +17,16 @@ public class User {
     private String username;
     @Column(name = "Password")
     private String password;
-    @Column(name = "User_Role")
-    private String userRole;
 
     @OneToOne
     @JoinColumn(name = "Emp_Id", referencedColumnName = "ID")
     EmployeeProfile employeeProfile;
+
+
+    @ManyToMany
+    @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "User_Id"),
+            inverseJoinColumns = @JoinColumn(name = "Role_Id"))
+    private List<Role> roles;
 
     /*@OneToOne
     @JoinColumn(name = "sup_ID", referencedColumnName = "sup_ID")
@@ -51,13 +57,6 @@ public class User {
         this.password = password;
     }
 
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
 
     public EmployeeProfile getEmployeeProfile() {
         return employeeProfile;
@@ -67,6 +66,13 @@ public class User {
         this.employeeProfile = employeeProfile;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
     /*
     public void setEmployee_supervisor(Employee_Supervisor employee_supervisor) {
         this.employee_supervisor = employee_supervisor;

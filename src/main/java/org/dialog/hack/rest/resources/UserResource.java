@@ -5,7 +5,11 @@
  */
 package org.dialog.hack.rest.resources;
 
+import org.dialog.hack.model.Role;
 import org.dialog.hack.model.User;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by sasini on 5/24/17.
@@ -16,7 +20,7 @@ public class UserResource {
     private Long id;
     private String username;
     private String password;
-    private String userRole;
+    private List<RoleResource> roles;
 
     public UserResource() {
     }
@@ -25,7 +29,7 @@ public class UserResource {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.userRole = user.getUserRole();
+       // this.roles = user.getRoles().stream().map(RoleResource::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -52,12 +56,12 @@ public class UserResource {
         this.password = password;
     }
 
-    public String getUserRole() {
-        return userRole;
+    public List<RoleResource> getRoles() {
+        return roles;
     }
 
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
+    public void setRoles(List<RoleResource> roles) {
+        this.roles = roles;
     }
 
     public User toUser() {
@@ -65,7 +69,7 @@ public class UserResource {
         user.setId(id);
         user.setUsername(username);
         user.setPassword(password);
-        user.setUserRole(userRole);
+       // user.setRoles(roles.stream().map(RoleResource::toRole).collect(Collectors.toList()));
 
         return user;
     }
