@@ -5,24 +5,31 @@
  */
 package org.dialog.hack.util;
 
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.core.MultivaluedMap;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
  * @author Amila Karunathilaka
  * @since 17.07
  */
-public class CorsResponseFilter implements ContainerResponseFilter {
+public class CorsResponseFilter extends OncePerRequestFilter {
+
+
     @Override
-    public void filter(ContainerRequestContext containerRequestContext,
-                       ContainerResponseContext containerResponseContext) throws IOException {
-        MultivaluedMap<String, Object> headers = containerResponseContext.getHeaders();
-        headers.add("Access-Control-Allow-Origin", "*");
-        headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
-        headers.add("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia, Authorization");
-        //headers.add("access-control-expose-headers", "Authorization");
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+        httpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
+        httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
+        httpServletResponse.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+        httpServletResponse.addHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia, Authorization");
+        httpServletResponse.addHeader("access-control-expose-headers", "Authorization");
+
+        if (!"OPTIONS".equals(httpServletRequest.getMethod())) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+        }
     }
 }
