@@ -71,8 +71,8 @@
 
     <bean id = "corsResponseFilter" class="org.dialog.hack.util.CorsResponseFilter"/>
 
-    <s:http auto-config="true" >
-        <s:intercept-url pattern="rest/**" access="ROLE_ADMIN"/>
+    <s:http auto-config="true">
+    <!--    <s:intercept-url pattern="rest/**" access="ROLE_ADMIN"/>-->
         <s:intercept-url pattern="rest/auth" access="permitAll" method="POST"/>
         <s:custom-filter ref="corsResponseFilter" before="PRE_AUTH_FILTER"/>
         <s:custom-filter position="PRE_AUTH_FILTER" ref="jwtLoginFilter"/>

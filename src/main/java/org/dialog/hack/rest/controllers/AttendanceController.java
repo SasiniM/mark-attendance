@@ -27,7 +27,7 @@ public class AttendanceController {
     }
 
     @GET
-    @Path("/{username}")
+    @Path("/mark/{username}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createEmployeeAttendance(@PathParam("username") String username) {
         boolean isSuccess = attendanceService.saveEmployeeAttendance(username);

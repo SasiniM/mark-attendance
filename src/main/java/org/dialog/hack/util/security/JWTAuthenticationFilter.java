@@ -64,6 +64,12 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 filterChain.doFilter(servletRequest, servletResponse);
             }
+
+            System.out.println(((HttpServletRequest)servletRequest).getRequestURI());
+            if (((HttpServletRequest)servletRequest).getRequestURI().contains("attendance/mark")) {
+                filterChain.doFilter(servletRequest, servletResponse);
+            }
+
             servletResponse.getWriter().write("Unauthorized. Jwt Token not provided");
             ((HttpServletResponse) servletResponse).setStatus(401);
 

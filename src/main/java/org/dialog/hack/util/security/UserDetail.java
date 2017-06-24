@@ -5,10 +5,8 @@
  */
 package org.dialog.hack.util.security;
 
-import org.dialog.hack.model.Role;
 import org.dialog.hack.model.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;

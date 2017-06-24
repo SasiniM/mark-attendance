@@ -7,7 +7,6 @@ package org.dialog.hack.util.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.util.StringUtils;
 
 import java.util.Base64;
 import java.util.Date;
