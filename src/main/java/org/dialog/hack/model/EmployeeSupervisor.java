@@ -26,6 +26,9 @@ public class EmployeeSupervisor {
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "employeeSupervisor", fetch = FetchType.EAGER)
     List<EmployeeProfile> employeeProfiles;
+
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "employeeProfile", fetch = FetchType.EAGER)
+    User user;
 /*
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "employeeProfile", fetch = FetchType.EAGER)
     @JoinColumn(name = "uID_fk", referencedColumnName = "uID")
@@ -70,5 +73,11 @@ public class EmployeeSupervisor {
     public void setEmployeeProfiles(List<EmployeeProfile> employeeProfiles) {
         this.employeeProfiles = employeeProfiles;
     }
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
