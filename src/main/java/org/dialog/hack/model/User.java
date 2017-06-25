@@ -18,10 +18,12 @@ public class User {
     @Column(name = "Password")
     private String password;
 
-    @OneToOne
-    @JoinColumn(name = "Emp_Id", referencedColumnName = "ID")
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.EAGER)
     EmployeeProfile employeeProfile;
 
+    @OneToOne
+    @JoinColumn(name = "Sup_Id", referencedColumnName = "ID")
+    EmployeeSupervisor employeeSupervisor;
 
     @ManyToMany
     @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "User_Id"),
@@ -64,6 +66,14 @@ public class User {
 
     public void setEmployeeProfile(EmployeeProfile employeeProfile) {
         this.employeeProfile = employeeProfile;
+    }
+
+    public EmployeeSupervisor getEmployeeSupervisor() {
+        return employeeSupervisor;
+    }
+
+    public void setEmployeeSupervisor(EmployeeSupervisor employeeSupervisor) {
+        this.employeeSupervisor = employeeSupervisor;
     }
 
     public List<Role> getRoles() {
