@@ -30,7 +30,8 @@ public class EmployeeProfile {
     @Column(name = "Create_Time")
     private Date createdDate;
 
-    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "employeeProfile", fetch = FetchType.EAGER)
+    @OneToOne
+    @JoinColumn(name = "User_Id", referencedColumnName = "ID")
     User user;
 
     @ManyToOne
