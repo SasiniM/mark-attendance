@@ -20,20 +20,14 @@ public class User {
 
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.EAGER)
     EmployeeProfile employeeProfile;
-
-    @OneToOne
-    @JoinColumn(name = "Sup_Id", referencedColumnName = "ID")
-    EmployeeSupervisor employeeSupervisor;
+/*
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "user1", fetch = FetchType.EAGER)
+    EmployeeSupervisor employeeSupervisor;*/
 
     @ManyToMany
     @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "User_Id"),
             inverseJoinColumns = @JoinColumn(name = "Role_Id"))
     private List<Role> roles;
-
-    /*@OneToOne
-    @JoinColumn(name = "sup_ID", referencedColumnName = "sup_ID")
-    Employee_Supervisor employee_supervisor;
-*/
 
     public Long getId() {
         return id;
@@ -68,14 +62,14 @@ public class User {
         this.employeeProfile = employeeProfile;
     }
 
-    public EmployeeSupervisor getEmployeeSupervisor() {
+  /* public EmployeeSupervisor getEmployeeSupervisor() {
         return employeeSupervisor;
     }
 
     public void setEmployeeSupervisor(EmployeeSupervisor employeeSupervisor) {
         this.employeeSupervisor = employeeSupervisor;
     }
-
+*/
     public List<Role> getRoles() {
         return roles;
     }
@@ -83,8 +77,5 @@ public class User {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-    /*
-    public void setEmployee_supervisor(Employee_Supervisor employee_supervisor) {
-        this.employee_supervisor = employee_supervisor;
-    }*/
+
 }

@@ -8,8 +8,7 @@ package org.dialog.hack.model;
 import javax.persistence.*;
 
 /**
- * @author Amila Karunathilaka
- * @since 17.07
+ * Created by sasini on 5/24/17.
  */
 @Entity
 @Table(name = "Role")
