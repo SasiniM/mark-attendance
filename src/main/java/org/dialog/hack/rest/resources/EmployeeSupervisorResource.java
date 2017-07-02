@@ -14,6 +14,8 @@ public class EmployeeSupervisorResource {
     private String supLastname;
     private String supStaffNo;
 
+    private UserResource userResource;
+
     List<EmployeeProfileResource> employeeProfileResources;
 
     public  EmployeeSupervisorResource(){}
@@ -22,6 +24,10 @@ public class EmployeeSupervisorResource {
         this.supFirstname = employeeSupervisor.getSupFirstname();
         this.supLastname = employeeSupervisor.getSupLastname();
         this.supStaffNo = employeeSupervisor.getSupStaffNo();
+
+        if (employeeSupervisor.getUser1() != null) {
+            this.userResource = new UserResource(employeeSupervisor.getUser1());
+        }
         if(employeeSupervisor.getEmployeeProfiles() != null) {
             this.employeeProfileResources =
                     employeeSupervisor.getEmployeeProfiles().
@@ -76,6 +82,11 @@ public class EmployeeSupervisorResource {
         employeeSupervisor.setSupFirstname(supFirstname);
         employeeSupervisor.setSupLastname(supLastname);
         employeeSupervisor.setSupStaffNo(supStaffNo);
+
+        if (userResource != null) {
+            employeeSupervisor.setUser1(userResource.toUser());
+        }
+
         if (employeeProfileResources != null) {
             employeeSupervisor.setEmployeeProfiles(employeeProfileResources.stream().
                     map(EmployeeProfileResource::toEmployeeProfile).
