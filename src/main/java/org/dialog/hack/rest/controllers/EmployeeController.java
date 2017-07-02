@@ -34,10 +34,20 @@ public class EmployeeController {
         if (isSuccess == true)
             return Response.status(200).entity("Transaction successful").build();
         else
-            return Response.status(200).entity("Transaction faild").build();
+            return Response.status(200).entity("Transaction failed").build();
 
     }
 
+    @DELETE
+    @Path("/remove/{empStaffNo}")
+    public Response removeEmployeeProfile(@PathParam("empStaffNo") String empStaffNo){
+        Boolean isSuccess = employeeService.removeEmployeeProfile(empStaffNo);
 
+        if(isSuccess == true){
+            return Response.status(200).entity("Employee deleted successfully").build();
+        }
+        else
+            return Response.status(200).entity("Unable to delete employee").build();
+    }
 
 }

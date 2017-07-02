@@ -6,10 +6,7 @@ import org.dialog.hack.rest.resources.EmployeeSupervisorResource;
 import org.dialog.hack.service.SupervisorService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -31,7 +28,26 @@ public class SupervisorController {
         if (isSuccess == true)
             return Response.status(200).entity("Transaction successful").build();
         else
-            return Response.status(200).entity("Transaction faild").build();
+            return Response.status(200).entity("Transaction failed").build();
 
+    }
+
+    @GET
+    @Path("/list/{pageNo}/{pageSize}/{sortDir}/{sortCol}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listEmployeeSupervisor(@PathParam("pageNo") int pageNo,@PathParam("pageSize") int pageSize,@PathParam("sortDir") String sortDir,@PathParam("sortCol") String sortCol) {
+        return Response.status(200).entity(supervisorService.listEmployeeSupervisor(pageNo, pageSize, sortDir, sortCol)).build();
+    }
+
+    @DELETE
+    @Path("/delete/{supStaffNo}")
+    public Response deleteEmployeeSupervisor(@PathParam("supStaffNo") String supStaffNo) {
+        boolean isSuccess = supervisorService.deleteEmployeeSupervisor(supStaffNo);
+
+        if (isSuccess == true){
+            return Response.status(200).entity("Transaction successful").build();
+        }
+        else
+            return Response.status(200).entity("Transaction failed").build();
     }
 }
