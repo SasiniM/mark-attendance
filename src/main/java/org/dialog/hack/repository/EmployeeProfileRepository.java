@@ -16,6 +16,7 @@ public interface EmployeeProfileRepository extends CrudRepository<EmployeeProfil
 
     List<EmployeeProfile> findByEmpFirstnameAndEmpLastname(String empFirstname, String empLastname);
 
+    Long deleteByempStaffNo(String empStaffNo);
 
 }
 
