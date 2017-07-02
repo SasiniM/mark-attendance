@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author Amila Karunathilaka
- * @since 17.07
+ * Created by sasini on 5/27/17.
  */
 public class EmployeeService {
 
@@ -39,26 +38,39 @@ public class EmployeeService {
         }
     }
 
+    public boolean removeEmployeeProfile(String empStaffNo) {
+        try {
+            if (empStaffNo != null){
+                Long deletedEmp = employeeRepository.deleteByempStaffNo(empStaffNo);
+                if (deletedEmp != null){
+                    return true;
+                }
+            }
+            return false;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
     public boolean saveEmployeeProfile(EmployeeProfileResource employeeProfileResource){
         try {
             User user = null;
             if (employeeProfileResource.getUser() != null) {
-                user= employeeProfileResource.getUser().toUser();
-                employeeProfileResource.setUser(null);
+                user = employeeProfileResource.getUser().toUser();
+                //employeeProfileResource.setUser(null);
+                if (user != null) {
+                    user = userRepository.save(user);
+                }
+                if (user != null) {
+                    EmployeeProfile employeeProfile = employeeRepository.save(employeeProfileResource.toEmployeeProfile());
+                    if (employeeProfile != null) {
+                        return true;
+                    }
+                }
             }
-            EmployeeProfile employeeProfile = employeeRepository.save(employeeProfileResource.toEmployeeProfile());
-            if (user != null) {
-                user.setEmployeeProfile(employeeProfile);
-                user = userRepository.save(user);
-            }
+            return false;
 
-            if (employeeProfile == null) {
-                return false;
-            } else {
-                return true;
-            }
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
