@@ -14,6 +14,8 @@ public class CompanyResource {
 
     List<EmployeeProfileResource> employeeProfileResources;
 
+    public CompanyResource(){}
+
     public CompanyResource(Company company){
         this.id = company.getId();
         this.companyName = company.getCompanyName();
