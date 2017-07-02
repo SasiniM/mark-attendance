@@ -29,7 +29,7 @@ public class UserResource {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-       // this.roles = user.getRoles().stream().map(RoleResource::new).collect(Collectors.toList());
+        this.roles = user.getRoles().stream().map(RoleResource::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -69,7 +69,7 @@ public class UserResource {
         user.setId(id);
         user.setUsername(username);
         user.setPassword(password);
-       // user.setRoles(roles.stream().map(RoleResource::toRole).collect(Collectors.toList()));
+        user.setRoles(roles.stream().map(RoleResource::toRole).collect(Collectors.toList()));
 
         return user;
     }
