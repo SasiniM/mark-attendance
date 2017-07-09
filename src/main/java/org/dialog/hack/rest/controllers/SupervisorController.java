@@ -25,29 +25,54 @@ public class SupervisorController {
     public Response createEmployeeSupervisor(EmployeeSupervisorResource supervisorResource) {
         boolean isSuccess = supervisorService.saveEmployeeSupervisor(supervisorResource);
 
-        if (isSuccess == true)
+        if (isSuccess == true) {
             return Response.status(200).entity("Transaction successful").build();
-        else
+        }
+        else {
             return Response.status(200).entity("Transaction failed").build();
+        }
 
     }
 
     @GET
     @Path("/list/{pageNo}/{pageSize}/{sortDir}/{sortCol}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listEmployeeSupervisor(@PathParam("pageNo") int pageNo,@PathParam("pageSize") int pageSize,@PathParam("sortDir") String sortDir,@PathParam("sortCol") String sortCol) {
-        return Response.status(200).entity(supervisorService.listEmployeeSupervisor(pageNo, pageSize, sortDir, sortCol)).build();
+    public Response listEmployeeSupervisor(@PathParam("pageNo") int pageNo,@PathParam("pageSize") int pageSize,
+                                           @PathParam("sortDir") String sortDir,@PathParam("sortCol") String sortCol) {
+        return Response.status(200).entity(supervisorService.listEmployeeSupervisor(pageNo, pageSize, sortDir,
+                sortCol)).build();
+    }
+
+    @GET
+    @Path("/profile/{firstname}/{lastname}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response viewSupervisorProfile(@PathParam("firstname") String firstname, @PathParam("lastname") String lastname){
+        return Response.status(200).entity(supervisorService.getSupervisorProfile(firstname, lastname)).build();
     }
 
     @DELETE
     @Path("/delete/{supStaffNo}")
     public Response deleteEmployeeSupervisor(@PathParam("supStaffNo") String supStaffNo) {
-        boolean isSuccess = supervisorService.deleteEmployeeSupervisor(supStaffNo);
+        boolean isSuccess = supervisorService.deleteEmployeeSupervisorByStaffno(supStaffNo);
 
         if (isSuccess == true){
             return Response.status(200).entity("Transaction successful").build();
         }
-        else
+        else {
             return Response.status(200).entity("Transaction failed").build();
+        }
+    }
+
+    @DELETE
+    @Path("/delete/{id}")
+    public Response deleteEmployeeSupervisor(@PathParam("id") Long id) {
+        boolean isSuccess = supervisorService.deleteEmployeeSupervisor(id);
+
+        if (isSuccess == true){
+            return Response.status(200).entity("Transaction successful").build();
+        }
+        else {
+            return Response.status(200).entity("Transaction failed").build();
+        }
     }
 }

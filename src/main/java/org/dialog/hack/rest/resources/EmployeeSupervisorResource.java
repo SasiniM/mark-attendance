@@ -19,6 +19,7 @@ public class EmployeeSupervisorResource {
     List<EmployeeProfileResource> employeeProfileResources;
 
     public  EmployeeSupervisorResource(){}
+
     public EmployeeSupervisorResource(EmployeeSupervisor employeeSupervisor){
         this.id = employeeSupervisor.getId();
         this.supFirstname = employeeSupervisor.getSupFirstname();
@@ -74,6 +75,14 @@ public class EmployeeSupervisorResource {
 
     public void setEmployeeProfileResources(List<EmployeeProfileResource> employeeProfileResources) {
         this.employeeProfileResources = employeeProfileResources;
+    }
+
+    public UserResource getUserResource() {
+        return userResource;
+    }
+
+    public void setUserResource(UserResource userResource) {
+        this.userResource = userResource;
     }
 
     public EmployeeSupervisor toEmployeeSupervisor() {
