@@ -8,13 +8,15 @@ package org.dialog.hack.rest.resources;
 import org.dialog.hack.model.Role;
 
 /**
- * @author Amila Karunathilaka
- * @since 17.07
+ * Created by sasini on 5/24/17.
  */
 public class RoleResource {
 
     private Long id;
     private String name;
+
+    public RoleResource() {
+    }
 
     public RoleResource(Role role) {
         this.id = role.getId();
