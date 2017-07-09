@@ -5,7 +5,6 @@
  */
 package org.dialog.hack.rest.resources;
 
-import org.dialog.hack.model.Role;
 import org.dialog.hack.model.User;
 
 import java.util.List;

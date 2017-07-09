@@ -32,10 +32,12 @@ public class AttendanceController {
     public Response createEmployeeAttendance(@PathParam("username") String username) {
         boolean isSuccess = attendanceService.saveEmployeeAttendance(username);
 
-        if (isSuccess == true)
+        if (isSuccess == true) {
             return Response.status(200).entity("Transaction successful").build();
-        else
+        }
+        else {
             return Response.status(200).entity("Transaction faild").build();
+        }
 
     }
 }
